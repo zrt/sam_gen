@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8"/>
+  <title>Builder</title>
+  <link rel="stylesheet" type="text/css" href="./semantic.min.css">
+<script
+  src="http://zrt.io/js/jquery.min.js"></script>
+<script src="./semantic.min.js"></script>
+</head>
+<body>
+  <div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+      <div class="ui text container">
+        <div class="ui big icon input">
+          <input placeholder="Input...(max 255 characters)" type="text" id="ins">
+        </div>
+        <br>
+        <br>
+        <div class="ui huge primary button" id="btn">Build!</div>
+      </div>
+    </div>
+  </div>
+  <div class="ui container">
+    <div class="ui segments">
+      <div class="ui segment center aligned">
+        <div id="holder"></div>
+      </div>
+      <div class="ui segment">
+        By zrt.
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $('#btn').click(function(){
+      $('#btn').text('Loading...');
+      $.ajax({
+        url: './getsvg/',
+        type: 'POST',
+        dataType: 'text',
+        data: {t:'sam',s: $('#ins').val()},
+      })
+      .done(function(data) {
+        console.log("success");
+        $('#holder').html('<img src="data:image/svg+xml;base64,'+data+'" >');
+        $('#btn').text('Build!');
+      })
+      .fail(function() {
+        console.log("error");
+        $('#btn').text('[E],Build!');
+      });
+    })
+    
+  </script>
+</body>
+
+</html>
