@@ -7,9 +7,11 @@ import re,random,string
 import base64
 
 from flask import Flask, request, abort, render_template, send_file
-
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route('/')
 def index1():
@@ -22,7 +24,7 @@ def index3():
     return send_file('./semantic.min.js')
 
 @app.route('/getsvg/', methods=['POST'])
-def wechat():
+def getsvg():
     t = request.form.get('t', '')
     s = request.form.get('s', '')
     if t != 'sam':
